@@ -1,20 +1,13 @@
 import { Component, OnInit } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
-import {
-    IonContent,
-    IonHeader,
-    IonTitle,
-    IonToolbar,
-    IonRadio,
-    IonRadioGroup,
-} from '@ionic/angular/standalone'
+import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
 
 @Component({
-    selector: 'app-settings',
-    templateUrl: './settings.page.html',
-    styleUrls: ['./settings.page.scss'],
+    selector: 'app-recipe-details',
+    templateUrl: './recipe-details.page.html',
+    styleUrls: ['./recipe-details.page.scss'],
     standalone: true,
     imports: [
         IonContent,
@@ -24,11 +17,9 @@ import { GlobalMenuComponent } from '../components/global-menu/global-menu.compo
         CommonModule,
         FormsModule,
         GlobalMenuComponent,
-        IonRadio,
-        IonRadioGroup,
     ],
 })
-export class SettingsPage implements OnInit {
+export class RecipeDetailsPage implements OnInit {
     constructor() {}
 
     ngOnInit() {}

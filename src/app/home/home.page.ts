@@ -20,4 +20,5 @@ export class HomePage {
 
     // TODO: add service to get recipes
     // TODO: on load or if search is empty, show  random recipes
+    // TODO: figure out how to navigate to recipe details with a specific recipe id
 }
