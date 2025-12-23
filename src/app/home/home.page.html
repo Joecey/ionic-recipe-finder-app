@@ -1,7 +1,7 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Main Menu (Haha, get it?)
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -9,12 +9,19 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Main Menu</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
+    <div class="hero-image">
+      <img src="assets/kirby-eating.gif" alt="Kirby Eating" />
+    </div>
+    <div class="hero-text">
+      <strong>Are you ready to consume large portions of food?</strong>
+      <p>Input your ingredients below and start seraching for recipes!</p>
+    </div>
+    <ion-searchbar class="searchbar-home" placeholder="Example: chicken, pasta, tomato sauce"></ion-searchbar>
     <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
   </div>
 </ion-content>
