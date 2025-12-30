@@ -28,7 +28,25 @@
                 [(ngModel)]="ingredientSearch"
                 name="search"
             ></ion-searchbar>
-            <ion-button type="submit">Search Recipes</ion-button>
+            <ion-button type="submit" [disabled]="loading">
+                {{ loading ? 'Searching...' : 'Search Recipes' }}
+            </ion-button>
         </form>
+        <div [hidden]="!returnedRecipeData || returnedRecipeData.length === 0">
+            <h2>Results</h2>
+            <div class="recipe-cards">
+                @for(recipe of returnedRecipeData; track recipe.id){
+                <ion-card class="recipe-card">
+                    <img
+                        [alt]="recipe.title + ' recipe'"
+                        [src]="recipe.image || 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                    />
+                    <ion-card-header>
+                        <ion-card-title>{{ recipe.title }}</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+                }
+            </div>
+        </div>
     </div>
 </ion-content>

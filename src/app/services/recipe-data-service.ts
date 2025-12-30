@@ -12,7 +12,7 @@ export class RecipeDataService {
         const options: HttpOptions = {
             url: 'https://api.spoonacular.com/recipes/complexSearch',
             params: {
-                ingredients: ingredients,
+                query: ingredients,
                 apiKey: this.API_KEY,
             },
         }

@@ -6,6 +6,10 @@ import {
     IonContent,
     IonSearchbar,
     IonButton,
+    IonCardHeader,
+    IonCard,
+    IonCardContent,
+    IonCardTitle,
 } from '@ionic/angular/standalone'
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
 import { FormsModule } from '@angular/forms'
@@ -25,6 +29,9 @@ import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
         IonContent,
         IonSearchbar,
         IonButton,
+        IonCard,
+        IonCardHeader,
+        IonCardTitle,
         GlobalMenuComponent,
         FormsModule,
     ],
@@ -36,11 +43,14 @@ export class HomePage {
 
     ingredientSearch: string = ''
     returnedRecipeData!: RecipeGeneric[]
+    loading: boolean = false
 
     // Function used to search recipes based on ingredientSearch
     async searchRecipes() {
+        this.loading = true
         if (!this.ingredientSearch.trim()) {
             this.returnedRecipeData = []
+            this.loading = false
             return
         }
 
@@ -62,7 +72,6 @@ export class HomePage {
             alert('Invalid type format found when searching for recipes')
             this.returnedRecipeData = []
         }
-
-        alert(`you searched for ${formattedIngredients}`)
+        this.loading = false
     }
 }
