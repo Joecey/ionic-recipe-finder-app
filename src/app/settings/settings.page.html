@@ -17,9 +17,13 @@
             <strong>Would you like your measurements in US or Metric?</strong>
         </div>
         <div>
-            <ion-radio-group class="radio-group">
-                <ion-radio value="us">US</ion-radio>
-                <ion-radio value="metric">Metric</ion-radio>
+            <ion-radio-group
+                class="radio-group"
+                [value]="measurementSetting"
+                (ionChange)="setNewMeasurement($event.detail.value)"
+            >
+                <ion-radio value="US">US</ion-radio>
+                <ion-radio value="METRIC">Metric</ion-radio>
             </ion-radio-group>
         </div>
     </div>

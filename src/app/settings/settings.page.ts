@@ -10,6 +10,7 @@ import {
     IonRadioGroup,
 } from '@ionic/angular/standalone'
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
+import { MeasurementsService } from '../services/measurements-service'
 
 @Component({
     selector: 'app-settings',
@@ -29,7 +30,18 @@ import { GlobalMenuComponent } from '../components/global-menu/global-menu.compo
     ],
 })
 export class SettingsPage implements OnInit {
-    constructor() {}
+    measurementSetting!: 'US' | 'METRIC'
 
-    ngOnInit() {}
+    constructor(private measurementsService: MeasurementsService) {}
+
+    async ngOnInit() {
+        // initialise the measurement preference from ionic storage + the created service
+        this.measurementSetting = await this.measurementsService.getMeasurements()
+    }
+
+    // on change, update the storage setting and the local setting for visual clarity
+    async setNewMeasurement(value: 'US' | 'METRIC') {
+        this.measurementSetting = value
+        await this.measurementsService.setMeasurements(value)
+    }
 }
