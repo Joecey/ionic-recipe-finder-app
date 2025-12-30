@@ -19,11 +19,16 @@
         </div>
         <div class="hero-text">
             <strong>Are you ready to consume large portions of food?</strong>
-            <p>Input your ingredients below and start seraching for recipes!</p>
+            <p>Input your ingredients below and start searching for recipes!</p>
         </div>
-        <ion-searchbar
-            class="searchbar-home"
-            placeholder="Example: chicken, pasta, tomato sauce"
-        ></ion-searchbar>
+        <form id="recipe-search-form" (ngSubmit)="searchRecipes()">
+            <ion-searchbar
+                class="searchbar-home"
+                placeholder="Example: chicken, pasta, tomato sauce"
+                [(ngModel)]="ingredientSearch"
+                name="search"
+            ></ion-searchbar>
+            <ion-button type="submit">Search Recipes</ion-button>
+        </form>
     </div>
 </ion-content>
