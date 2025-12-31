@@ -14,6 +14,7 @@ export class RecipeDataService {
             params: {
                 query: ingredients,
                 apiKey: this.API_KEY,
+                number: '30',
             },
         }
         const response: HttpResponse = await CapacitorHttp.get(options)
