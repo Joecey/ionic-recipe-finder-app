@@ -11,4 +11,12 @@
         </ion-toolbar>
     </ion-header>
     <app-global-menu></app-global-menu>
+
+    <div id="container">
+        @if (recipeId) {
+        <h2>Recipe ID: {{ recipeId }}</h2>
+        } @else {
+        <h2>Recipe was not found</h2>
+        }
+    </div>
 </ion-content>
