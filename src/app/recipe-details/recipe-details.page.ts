@@ -1,9 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
+import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
-import { Router, NavigationEnd } from '@angular/router'
-import { filter } from 'rxjs/operators'
+import { Router } from '@angular/router'
+import { RecipeDataService } from '../services/recipe-data-service'
+import { ViewWillEnter } from '@ionic/angular'
 @Component({
     selector: 'app-recipe-details',
     templateUrl: './recipe-details.page.html',
@@ -11,22 +12,20 @@ import { filter } from 'rxjs/operators'
     standalone: true,
     imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, GlobalMenuComponent],
 })
-export class RecipeDetailsPage implements OnInit, OnDestroy {
+export class RecipeDetailsPage implements ViewWillEnter {
     // on load, get the recipe id from navigation state
     recipeId: number | undefined
-    private routerSubscription: any
 
-    constructor(private router: Router) {}
+    constructor(
+        private router: Router,
+        private recipeService: RecipeDataService
+    ) {}
 
-    ngOnInit() {
+    ngOnInit() {}
+
+    // when view is updated to this page, update the recipe id
+    ionViewWillEnter() {
         this.updateRecipeId()
-
-        // Listen for navigation events to update recipe ID
-        this.routerSubscription = this.router.events
-            .pipe(filter((event): event is NavigationEnd => event instanceof NavigationEnd))
-            .subscribe(() => {
-                this.updateRecipeId()
-            })
     }
 
     // on load, we want to update the recipe id based on the nav from the previous route
@@ -39,13 +38,19 @@ export class RecipeDetailsPage implements OnInit, OnDestroy {
         } else if (history.state['recipeId']) {
             this.recipeId = history.state['recipeId']
         }
+
+        this.fetchRecipeInformationFromID()
     }
 
-    // this fires when the component is removed completely and prevents memory leaks
-    ngOnDestroy() {
-        if (this.routerSubscription) {
-            this.routerSubscription.unsubscribe()
+    async fetchRecipeInformationFromID() {
+        // This is just a check in case the recipeID is undefined
+        if (!this.recipeId) {
+            console.error('No recipe ID found')
+            return
         }
+        console.log('Recipe ID:', this.recipeId)
+        const response = await this.recipeService.getRecipeById(this.recipeId!.toString())
+        console.log('Recipe:', response)
     }
 
     async updateFavouriteRecipeState() {}

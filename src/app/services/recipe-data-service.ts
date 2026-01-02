@@ -22,7 +22,14 @@ export class RecipeDataService {
     }
 
     async getRecipeById(id: string) {
-        // TODO: implement HTTP call to fetch recipes
+        const options: HttpOptions = {
+            url: `https://api.spoonacular.com/recipes/${id}/information`,
+            params: {
+                apiKey: this.API_KEY,
+            },
+        }
+        const response: HttpResponse = await CapacitorHttp.get(options)
+        return response.data
     }
 
     async getRecipesByIds(ids: string[]) {
