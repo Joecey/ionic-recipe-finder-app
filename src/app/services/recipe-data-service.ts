@@ -24,4 +24,8 @@ export class RecipeDataService {
     async getRecipeById(id: string) {
         // TODO: implement HTTP call to fetch recipes
     }
+
+    async getRecipesByIds(ids: string[]) {
+        // TODO: fetch multiple recipes by a list of ids
+    }
 }

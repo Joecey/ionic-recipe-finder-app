@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms'
 import { RecipeDataService } from '../services/recipe-data-service'
 import { isRecipeArray, type RecipeGeneric } from '../utils/isRecipeArray.util'
 import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
+import { Router, NavigationExtras } from '@angular/router'
 
 @Component({
     selector: 'app-home',
@@ -37,9 +38,11 @@ import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
     ],
 })
 export class HomePage {
-    constructor(private recipeService: RecipeDataService) {}
-
-    // TODO: figure out how to navigate to recipe details with a specific recipe id
+    // Inject the custom recipe service and nav controllern
+    constructor(
+        private recipeService: RecipeDataService,
+        private router: Router
+    ) {}
 
     ingredientSearch: string = ''
     returnedRecipeData!: RecipeGeneric[]
@@ -73,5 +76,14 @@ export class HomePage {
             this.returnedRecipeData = []
         }
         this.loading = false
+    }
+
+    // method for navigating to specific recipe page
+    navigateToRecipeDetails(recipeId: number) {
+        const navigationExtras: NavigationExtras = {
+            state: { recipeId },
+        }
+
+        this.router.navigate(['/recipe-details'], navigationExtras)
     }
 }

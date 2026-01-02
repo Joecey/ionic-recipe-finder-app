@@ -36,7 +36,11 @@
             <h2>Results</h2>
             <div class="recipe-cards">
                 @for(recipe of returnedRecipeData; track recipe.id){
-                <ion-card class="recipe-card">
+                <ion-card
+                    class="recipe-card"
+                    button="true"
+                    (click)="navigateToRecipeDetails(recipe.id)"
+                >
                     <img
                         [alt]="recipe.title + ' recipe'"
                         [src]="recipe.image || 'https://ionicframework.com/docs/img/demos/card-media.png'"

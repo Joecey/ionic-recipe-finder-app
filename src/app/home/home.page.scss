@@ -56,3 +56,13 @@
         justify-content: center;
     }
 }
+
+// we need this to make a cool hover effect on the card
+.recipe-card {
+    max-width: 320px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05) rotate(2deg);
+    }
+}
