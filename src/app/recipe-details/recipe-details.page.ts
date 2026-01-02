@@ -15,13 +15,13 @@ import { ViewWillEnter } from '@ionic/angular'
 export class RecipeDetailsPage implements ViewWillEnter {
     // on load, get the recipe id from navigation state
     recipeId: number | undefined
+    recipeData!: any
 
+    // constructor for router and recipe service
     constructor(
         private router: Router,
         private recipeService: RecipeDataService
     ) {}
-
-    ngOnInit() {}
 
     // when view is updated to this page, update the recipe id
     ionViewWillEnter() {

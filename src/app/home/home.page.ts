@@ -14,7 +14,7 @@ import {
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
 import { FormsModule } from '@angular/forms'
 import { RecipeDataService } from '../services/recipe-data-service'
-import { isRecipeArray, type RecipeGeneric } from '../utils/isRecipeArray.util'
+import { isRecipeArray, type RecipeGeneric } from '../utils/recipeTypes.util'
 import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
 import { Router, NavigationExtras } from '@angular/router'
 
