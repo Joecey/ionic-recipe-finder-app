@@ -13,9 +13,13 @@
     <app-global-menu></app-global-menu>
 
     <div id="container">
-        @if (recipeId) {
-        <h2>Recipe ID: {{ recipeId }}</h2>
-        } @else {
+        @if (loading) {
+        <h2>Loading recipe...</h2>
+        } @else if (recipeData) {
+        <h1>{{ recipeData.title }}</h1>
+        <h3>Recipe ID: {{ recipeId }}</h3>
+
+        blah blah } @else {
         <h2>Recipe was not found</h2>
         }
     </div>

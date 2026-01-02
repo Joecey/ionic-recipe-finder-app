@@ -5,6 +5,9 @@ import { GlobalMenuComponent } from '../components/global-menu/global-menu.compo
 import { Router } from '@angular/router'
 import { RecipeDataService } from '../services/recipe-data-service'
 import { ViewWillEnter } from '@ionic/angular'
+import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
+import { isRecipeDetails, type RecipeDetails } from '../utils/recipeTypes.util'
+
 @Component({
     selector: 'app-recipe-details',
     templateUrl: './recipe-details.page.html',
@@ -15,7 +18,8 @@ import { ViewWillEnter } from '@ionic/angular'
 export class RecipeDetailsPage implements ViewWillEnter {
     // on load, get the recipe id from navigation state
     recipeId: number | undefined
-    recipeData!: any
+    recipeData!: RecipeDetails | undefined
+    loading: boolean = false
 
     // constructor for router and recipe service
     constructor(
@@ -48,9 +52,19 @@ export class RecipeDetailsPage implements ViewWillEnter {
             console.error('No recipe ID found')
             return
         }
+        this.loading = true
         console.log('Recipe ID:', this.recipeId)
         const response = await this.recipeService.getRecipeById(this.recipeId!.toString())
         console.log('Recipe:', response)
+
+        if (verifyHttpResponse(response, isRecipeDetails)) {
+            this.recipeData = response
+        } else {
+            console.error('Invalid response format:', response)
+            alert('Invalid type format found when searching for recipes')
+            this.recipeData = undefined
+        }
+        this.loading = false
     }
 
     async updateFavouriteRecipeState() {}
