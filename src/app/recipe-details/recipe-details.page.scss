@@ -3,8 +3,8 @@
 }
 
 #container strong {
-    font-size: 20px;
-    line-height: 26px;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 #container p {
@@ -21,26 +21,21 @@
 }
 
 .ingredient-card {
-    max-width: 320px;
+    max-width: 200px;
 }
 
 .ingredient-cards {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 1rem;
     justify-content: center;
     align-items: center;
-
-    @media (min-width: 768px) {
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
+    flex-wrap: wrap;
 }
 
 // we need this to make a cool hover effect on the card
 .ingredient-card {
-    max-width: 320px;
+    max-width: 200px;
     transition: transform 0.3s ease;
 
     &:hover {

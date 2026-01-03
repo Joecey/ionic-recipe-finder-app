@@ -1,35 +1,72 @@
 import { Component } from '@angular/core'
 import { CommonModule } from '@angular/common'
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'
+import {
+    IonContent,
+    IonButton,
+    IonHeader,
+    IonTitle,
+    IonToolbar,
+    IonCard,
+    IonCardHeader,
+    IonCardSubtitle,
+    IonList,
+    IonItem,
+    IonLabel,
+} from '@ionic/angular/standalone'
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
 import { Router } from '@angular/router'
 import { RecipeDataService } from '../services/recipe-data-service'
 import { ViewWillEnter } from '@ionic/angular'
 import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
 import { isRecipeDetails, type RecipeDetails } from '../utils/recipeTypes.util'
+import { MeasurementsService } from '../services/measurements-service'
 
 @Component({
     selector: 'app-recipe-details',
     templateUrl: './recipe-details.page.html',
     styleUrls: ['./recipe-details.page.scss'],
     standalone: true,
-    imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, GlobalMenuComponent],
+    imports: [
+        IonContent,
+        IonHeader,
+        IonTitle,
+        IonToolbar,
+        CommonModule,
+        GlobalMenuComponent,
+        IonCard,
+        IonCardHeader,
+        IonCardSubtitle,
+        IonButton,
+        IonList,
+        IonItem,
+        IonLabel,
+    ],
 })
 export class RecipeDetailsPage implements ViewWillEnter {
-    // on load, get the recipe id from navigation state
+    // all our variables that will change when navigating to this page
     recipeId: number | undefined
     recipeData!: RecipeDetails | undefined
     loading: boolean = false
+    measurement!: 'US' | 'METRIC'
+    isFavourite!: boolean
 
     // constructor for router and recipe service
+    // router is used to get the history state which contains the required recipe id
     constructor(
         private router: Router,
-        private recipeService: RecipeDataService
+        private recipeService: RecipeDataService,
+        private measurementService: MeasurementsService
     ) {}
 
     // when view is updated to this page, update the recipe id
-    ionViewWillEnter() {
+    async ionViewWillEnter() {
         this.updateRecipeId()
+
+        // then fetch the current measurement preference
+        await this.fetchMeasurementPreference()
+
+        // then fetch favourite recipe state
+        await this.fetchFavouriteRecipeState()
     }
 
     // on load, we want to update the recipe id based on the nav from the previous route
@@ -67,5 +104,14 @@ export class RecipeDetailsPage implements ViewWillEnter {
         this.loading = false
     }
 
+    async fetchMeasurementPreference() {
+        this.measurement = await this.measurementService.getMeasurements()
+    }
+
+    // TODO: favourite handling
     async updateFavouriteRecipeState() {}
+
+    async fetchFavouriteRecipeState() {
+        this.isFavourite = false
+    }
 }

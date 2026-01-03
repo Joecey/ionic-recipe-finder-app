@@ -21,6 +21,7 @@ export function isRecipeArray(data: unknown): data is RecipeGeneric[] {
 }
 
 type Instructions = {
+    name: string
     steps: {
         number: number
         step: string
@@ -65,6 +66,7 @@ export function isRecipeDetails(data: unknown): data is RecipeDetails {
             (instruction: any) =>
                 typeof instruction === 'object' &&
                 instruction !== null &&
+                typeof instruction.name === 'string' &&
                 Array.isArray(instruction.steps) &&
                 instruction.steps.every(
                     (step: any) =>

@@ -17,9 +17,40 @@
         <h2>Loading recipe...</h2>
         } @else if (recipeData) {
         <h1>{{ recipeData.title }}</h1>
-        <h3>Recipe ID: {{ recipeId }}</h3>
+        <ion-button (click)="updateFavouriteRecipeState()">Add to Favourites</ion-button>
+        <h4>Ingredients</h4>
+        <div class="ingredient-cards">
+            @for(ingredient of recipeData.extendedIngredients; track ingredient.originalName){
+            <ion-card class="ingredient-card">
+                <img
+                    [alt]="ingredient.originalName"
+                    [src]="`https://img.spoonacular.com/ingredients_100x100/${ingredient.image}` || 'https://ionicframework.com/docs/img/demos/card-media.png'"
+                />
+                <ion-card-header>
+                    <ion-card-subtitle
+                        >{{ ingredient.originalName }} -
+                        <strong
+                            >{{ measurement === 'METRIC' ? ingredient.measures.metric.amount :
+                            ingredient.measures.us.amount }} {{ measurement === 'METRIC' ?
+                            ingredient.measures.metric.unitLong : ingredient.measures.us.unitLong
+                            }}</strong
+                        ></ion-card-subtitle
+                    >
+                </ion-card-header>
+            </ion-card>
+            }
+        </div>
+        <h4>Instructions</h4>
+        @for(instruction of recipeData.analyzedInstructions; track instruction.name){
+        <ion-list>
+            @for (step of instruction.steps; track step.number){
+            <ion-item class="instruction-item">
+                <ion-label>{{step.step}}</ion-label>
+            </ion-item>
+            }
+        </ion-list>
 
-        blah blah } @else {
+        }} @else {
         <h2>Recipe was not found</h2>
         }
     </div>
