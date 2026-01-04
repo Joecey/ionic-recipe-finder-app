@@ -1,0 +1,64 @@
+#container {
+    text-align: center;
+}
+
+#container strong {
+    font-size: 20px;
+    line-height: 26px;
+}
+
+#container p {
+    font-size: 16px;
+    line-height: 22px;
+
+    color: #8c8c8c;
+
+    margin: 0;
+}
+
+#container a {
+    text-decoration: none;
+}
+
+.searchbar-home {
+    max-width: 25rem;
+    margin: 0 auto;
+}
+
+.hero-image {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.hero-image img {
+    max-width: 300px;
+    height: auto;
+}
+
+.hero-text {
+    margin-bottom: 1rem;
+}
+
+.recipe-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+
+    @media (min-width: 768px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
+
+// we need this to make a cool hover effect on the card
+.recipe-card {
+    max-width: 300px;
+    transition: transform 0.3s ease;
+
+    &:hover {
+        transform: scale(1.05) rotate(2deg);
+    }
+}

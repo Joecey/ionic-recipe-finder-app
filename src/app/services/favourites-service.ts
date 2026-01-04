@@ -32,6 +32,7 @@ export class FavouritesService {
             // if it isn't, add it to the end of the list
             currentRecipes.push(recipeId)
         }
+        console.log('bruhg', currentRecipes)
         // then update the list accordingly
         await this.storage.set('favouriteRecipes', currentRecipes)
     }
