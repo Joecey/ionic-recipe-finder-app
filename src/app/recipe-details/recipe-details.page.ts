@@ -20,6 +20,7 @@ import { ViewWillEnter } from '@ionic/angular'
 import { verifyHttpResponse } from '../utils/verifyHttpResponse.util'
 import { isRecipeDetails, type RecipeDetails } from '../utils/recipeTypes.util'
 import { MeasurementsService } from '../services/measurements-service'
+import { FavouritesService } from '../services/favourites-service'
 
 @Component({
     selector: 'app-recipe-details',
@@ -55,7 +56,8 @@ export class RecipeDetailsPage implements ViewWillEnter {
     constructor(
         private router: Router,
         private recipeService: RecipeDataService,
-        private measurementService: MeasurementsService
+        private measurementService: MeasurementsService,
+        private favouritesService: FavouritesService
     ) {}
 
     // when view is updated to this page, update the recipe id
@@ -90,9 +92,7 @@ export class RecipeDetailsPage implements ViewWillEnter {
             return
         }
         this.loading = true
-        console.log('Recipe ID:', this.recipeId)
         const response = await this.recipeService.getRecipeById(this.recipeId!.toString())
-        console.log('Recipe:', response)
 
         if (verifyHttpResponse(response, isRecipeDetails)) {
             this.recipeData = response
@@ -108,10 +108,24 @@ export class RecipeDetailsPage implements ViewWillEnter {
         this.measurement = await this.measurementService.getMeasurements()
     }
 
-    // TODO: favourite handling
-    async updateFavouriteRecipeState() {}
+    // this one function should be enough to update the favourite state
+    async updateFavouriteRecipeState() {
+        if (!this.recipeId) {
+            return
+        }
+        await this.favouritesService.updateFavouriteRecipesForIdNumber(this.recipeId)
+
+        // Update the local state to reflect the change so it appears immediately
+        await this.fetchFavouriteRecipeState()
+    }
 
     async fetchFavouriteRecipeState() {
-        this.isFavourite = false
+        // incase recipeId is undefined which it shouldn't
+        if (!this.recipeId) {
+            this.isFavourite = false
+            return
+        }
+        const currentFavouriteRecipes = await this.favouritesService.getFavouriteRecipes()
+        this.isFavourite = currentFavouriteRecipes.includes(this.recipeId)
     }
 }

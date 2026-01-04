@@ -17,7 +17,9 @@
         <h2>Loading recipe...</h2>
         } @else if (recipeData) {
         <h1>{{ recipeData.title }}</h1>
-        <ion-button (click)="updateFavouriteRecipeState()">Add to Favourites</ion-button>
+        <ion-button (click)="updateFavouriteRecipeState()"
+            >{{ isFavourite ? 'Remove from Favourites' : 'Add to Favourites' }}</ion-button
+        >
         <h4>Ingredients</h4>
         <div class="ingredient-cards">
             @for(ingredient of recipeData.extendedIngredients; track ingredient.originalName){

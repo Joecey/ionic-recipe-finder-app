@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common'
 import { FormsModule } from '@angular/forms'
 import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone'
 import { GlobalMenuComponent } from '../components/global-menu/global-menu.component'
+import { FavouritesService } from '../services/favourites-service'
 
 @Component({
     selector: 'app-favourites',
@@ -20,7 +21,13 @@ import { GlobalMenuComponent } from '../components/global-menu/global-menu.compo
     ],
 })
 export class FavouritesPage implements OnInit {
-    constructor() {}
+    constructor(private favouritesService: FavouritesService) {}
+    favouriteRecipes: number[] = []
 
     ngOnInit() {}
+
+    // when view is updated to this page, get the latest favourite recipes
+    async ionViewWillEnter() {
+        this.favouriteRecipes = await this.favouritesService.getFavouriteRecipes()
+    }
 }
